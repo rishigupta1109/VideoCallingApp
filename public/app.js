@@ -1,4 +1,4 @@
-const socket = io('http://localhost:3000');
+const socket = io('/');
 var peer = new Peer(); 
 var id;
 peer.on('open', function (i) {
