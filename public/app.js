@@ -1,4 +1,4 @@
-const socket = io('/');
+const socket = io('https://guarded-plateau-04700.herokuapp.com/');
 var peer = new Peer(); 
 var id;
 peer.on('open', function (i) {
