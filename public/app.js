@@ -1,5 +1,5 @@
-// const socket = io('https://guarded-plateau-04700.herokuapp.com/');
-const socket = io('http://localhost:5000');
+const socket = io('https://guarded-plateau-04700.herokuapp.com/');
+// const socket = io('http://localhost:5000');
 var peer = new Peer(); 
 var id;
 peer.on('open', function (i) {
