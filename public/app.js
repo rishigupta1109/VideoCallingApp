@@ -1,6 +1,9 @@
 const socket = io('https://guarded-plateau-04700.herokuapp.com/');
 // const socket = io('http://localhost:3000');
-var peer = new Peer();
+var peer = new Peer(undefined, {
+    host: '/',
+    port:'3001'
+});
 var id;
 peer.on('open', function (i) {
     id = i;
