@@ -1,0 +1,128 @@
+*{
+    font-family: sans-serif;
+}
+.navbar{
+    color:#41b9ff;
+    display: flex;
+    flex-direction: row;
+    
+    align-items: center;
+}
+#logo{
+    height:50px;
+    margin: 10px 20px;
+}
+#pic1{
+    height: 300px;
+}
+.content{
+    display: flex;
+    flex-wrap: wrap-reverse;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+#create-meet-btn ,#join-meet-btn{
+    font-size: large;
+    height:60px;
+    width:170px;
+    padding: 20px;
+    border:none;
+    border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    -ms-border-radius: 15px;
+    -o-border-radius: 15px;
+    margin: 10px 10px;
+    cursor: pointer;
+}
+#create-meet-btn{
+    background-color: #41b9ff;
+    color: white;
+}
+#join-meet-btn{
+    background-color: white;
+    color: #41b9ff;
+    border: 1px solid #41b9ff;
+}
+#create-meet-btn:hover{
+    background-color: white;
+    color: #41b9ff;
+    border: 1px solid #41b9ff;
+}
+#join-meet-btn:hover{
+    background-color: #41b9ff;
+    color: white;
+}
+#roomid{
+    font-size: large;
+    border: 1px solid #41b9ff;
+    height: 35px;
+    width: 207px;
+    padding: 5px;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+}
+.left{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+.buttons{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.left h1{
+    font-size: xxx-large;
+    font-weight: bolder;
+    margin: 100px 0;
+}
+@media (max-width:500px) {
+    #pic1{
+        height: 150px;
+    }
+}
+.room{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+  display: none;
+}
+.videosection{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.videogrid{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+video{
+    margin: 15px;
+    height: 300px;
+    border-radius: 45px;
+    -webkit-border-radius: 45px;
+    -moz-border-radius: 45px;
+    -ms-border-radius: 45px;
+    -o-border-radius: 45px;
+}
+.chats{
+    width: 600px;
+    height: 600px;
+    background: #f7f7ca;
+    border-radius: 30px;
+    overflow: hidden;
+}

@@ -1,26 +1,54 @@
 const socket = io('https://guarded-plateau-04700.herokuapp.com/');
-// const socket = io('http://localhost:5000');
-var peer = new Peer(); 
+// const socket = io('http://localhost:3000');
+var peer = new Peer(undefined, {
+    host: 'localhost',
+    port: 9000,
+    path: '/'
+  });
 var id;
 peer.on('open', function (i) {
     id = i;
 });
 let peers = {};
+let createmeetbtn = document.getElementById("create-meet-btn");
+let joinmeetbtn = document.getElementById("join-meet-btn");
+let roomidtext = document.getElementsByClassName("roomid")[0];
+let content = document.getElementsByClassName("content")[0];
+let roombox = document.getElementsByClassName("room")[0];
+createmeetbtn.onclick = () => {
+    let username = prompt("username: ");
+    socket.emit("create-room",id,username);
+}
+socket.on("room-created", (roomid) => {
+    call();   
+    console.log(roomid);
+    roomidtext.innerText += roomid;
+})
+
+const join = () => {
+    let roomid = document.getElementById("roomid").value;
+    let username = prompt("username: ");
+    socket.emit("join-room",id,roomid,username);
+    call();
+    roomidtext.innerText += roomid;
+}
+joinmeetbtn.onclick = join;
 const call = () => {
-    let roomid = document.getElementById("username").value;
-    socket.emit("join-room",id,roomid);
+    content.style.display = "none";
+    roombox.style.display = "flex";
     navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then(stream => {
         
         let video = document.createElement("video");
         video.muted=true;
         addvideostream(video, stream)
         
-        socket.on("user-connected", userid => {
-            console.log(userid);
+        socket.on("user-connected", (userid,username) => {
             let call = peer.call(userid, stream);
+            console.log(call);
             let bool = true;
             call.on("stream", stream => {
                 let video = document.createElement("video");
+                console.log(stream);
                 if(bool)
                 addvideostream(video, stream)
                 bool = false;
@@ -32,6 +60,7 @@ const call = () => {
             peers[userid] = call;
         })
         peer.on("call", call => {
+            console.log("hello", call);
             answercall(call, stream);
         })
 
@@ -39,8 +68,8 @@ const call = () => {
 }
 
 const answercall = (Call, stream) => {
-    Call.answer(stream);
     console.log(Call);
+    Call.answer(stream);
     let bool = true;
     Call.on("stream", stream => {
         let video = document.createElement("video");
@@ -60,11 +89,8 @@ socket.on("user-disconnected", (userid) => {
     target.close();
 })
 const addvideostream = (video, stream) => {
-   
-    let body=document.getElementsByTagName("body")[0];
+    let body=document.getElementsByClassName("videogrid")[0];
     video.srcObject = stream;
-    
-        body.append(video);
-  
+    body.append(video);
     video.play();
 }
