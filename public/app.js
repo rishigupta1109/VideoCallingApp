@@ -1,4 +1,5 @@
-const socket = io('https://guarded-plateau-04700.herokuapp.com/');
+// const socket = io('https://guarded-plateau-04700.herokuapp.com/');
+const socket = io('http://localhost:5000');
 var peer = new Peer(); 
 var id;
 peer.on('open', function (i) {
@@ -11,7 +12,7 @@ const call = () => {
     navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then(stream => {
         
         let video = document.createElement("video");
-        
+        video.muted=true;
         addvideostream(video, stream)
         
         socket.on("user-connected", userid => {
