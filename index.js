@@ -12,20 +12,24 @@ let usernamesdata = {};
 app.get('/', (req, res) => {
     res.render('index');
 })
+app.get('/:room', (req, res) => {
+    res.render('conferenceroom', { roomId: req.params.room })
+  })
 io.on("connection", socket => {
-    socket.on("create-room", (id, username) => {
+    socket.on("create-room", () => {
         let room = uuidV4();
-        record[socket.id] = room;
-        users[socket.id] = id;
-        usernamesdata[id] = username;
+        // record[socket.id] = room;
+        // users[socket.id] = id;
+        // usernamesdata[id] = username;
         io.to(socket.id).emit("room-created", room);
-        console.log("userid",id);
-        console.log("username",username);
-        socket.join(room);
+        // console.log("userid",id);
+        // console.log("username",username);
+        // socket.join(room);
     })
     socket.on("join-room", (userid, roomid,username) => {
         console.log("userid",userid);
         console.log("username",username);
+        console.log("roomid",roomid);
         socket.join(roomid);
         usernamesdata[userid] = username;
         record[socket.id] = roomid;
