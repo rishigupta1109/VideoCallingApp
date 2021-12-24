@@ -90,12 +90,13 @@
         height: 150px;
     }
 }
+
 .room{
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
-    flex-wrap: wrap;
+    
   display: none;
 }
 .videosection{
@@ -130,4 +131,29 @@ video{
     background: #f7f7ca;
     border-radius: 30px;
     overflow: hidden;
+}
+@media (max-width:1000px) {
+    .room{
+        flex-wrap: wrap;
+    }
+}
+button image{
+    height:50px;
+    width:50px;
+}
+.row{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+.column{
+    display: flex;
+    flex-direction: column;
+    justify-content:center;
+    align-items: center;
+}
+.utility-btn{
+    cursor: pointer;
+    margin: 15px;
 }
