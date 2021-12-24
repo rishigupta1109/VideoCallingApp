@@ -95,6 +95,7 @@
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
+    flex-wrap: wrap;
   display: none;
 }
 .videosection{
@@ -119,7 +120,7 @@ video{
     -ms-border-radius: 45px;
     -o-border-radius: 45px;
 }
-.chats{
+#chats{
     width: 600px;
     height: 600px;
     background: #f7f7ca;

@@ -34,11 +34,19 @@ io.on("connection", socket => {
         usernamesdata[userid] = username;
         record[socket.id] = roomid;
         users[socket.id] = userid;
+        io.to(socket.id).emit("usersdata", usernamesdata);
         socket.to(roomid).emit("user-connected", userid, username);
     })
-    socket.on("disconnect", () => {
-        socket.to(record[socket.id]).emit("user-disconnected",users[socket.id]);
+    socket.on("message-send", message => {
+        socket.to(record[socket.id]).emit("message-recieved",usernamesdata[users[socket.id]],message)
     })
+    socket.on("disconnect", () => {
+        socket.to(record[socket.id]).emit("user-disconnected", users[socket.id]);
+        delete usernamesdata[users[socket.id]];
+        delete record[socket.id];
+        delete users[socket.id];
+    })
+
 })
 
 server.listen((process.env.PORT||3000), () => {
