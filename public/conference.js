@@ -28,8 +28,12 @@ const muteHandler = (e) => {
         if (btn.getAttribute("data-type") == "audio") {
             if (btn.getAttribute("data-mute") == "true") {
                 mute(true);
+                btn.setAttribute("data-mute", "false");
+                btn.style.backgroundImage = `url(microphone.png)`;
             }
             else {
+                btn.setAttribute("data-mute", "true");
+                btn.style.backgroundImage = `url(microphonemute.png)`;
                 mute(false);
             }
         }
