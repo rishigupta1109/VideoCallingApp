@@ -1,3 +1,4 @@
+let audiobool = true;
 let peers = {};
 let videos = {};
 const socket = io('https://guarded-plateau-04700.herokuapp.com/');
@@ -18,37 +19,23 @@ var usernames = {};
 //     img2i.setAttribute("src", "videomute.png")
 //     return [img1, img1i, img2, img2i];
 // }
-const mute = (bool,video) => {
-    video.muted = bool;
+const mute = (bool) => {
+    audiobool = bool;
 }
 const muteHandler = (e) => {
     let btn = e.target;
     if (btn.getAttribute("data-key") == id) {
-        // if (btn.getAttribute("data-type") == "audio") {
-        //     if (btn.getAttribute("data-mute") == "true") {
-        //         socket.emit("mute-my-audio", id);
-        //     }
-        //     else {
-        //         socket.emit("mute-my-audio", id);
-        //     }
-        // }
-        
-    }
-    else {
         if (btn.getAttribute("data-type") == "audio") {
             if (btn.getAttribute("data-mute") == "true") {
-                mute(false,videos[(btn.getAttribute("data-key"))]);
-                btn.setAttribute("data-mute", "false");
-                btn.style.backgroundImage = "url(microphone.png)";
+                mute(true);
             }
             else {
-                mute(true,videos[(btn.getAttribute("data-key"))]);
-                btn.setAttribute("data-mute", "true");
-                btn.style.backgroundImage = "url(microphonemute.png)";
-                 
+                mute(false);
             }
         }
+        
     }
+    
 }
 // socket.on("mute-his-audio", id => {
 //     peers[id].mute(); 
@@ -89,7 +76,7 @@ const buttonsmaker = () => {
 const call = (username) => {
     // content.style.display = "none";
     roombox.style.display = "flex";
-    navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then(stream => {
+    navigator.mediaDevices.getUserMedia({ video: true, audio: audiobool }).then(stream => {
         const div = document.createElement("div");
         let video = document.createElement("video");
         let btns = buttonsmaker();
