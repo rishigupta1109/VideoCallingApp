@@ -102,7 +102,7 @@ const call = (username) => {
                 btn2.setAttribute("data-key", id);
         video.muted=true;
         addvideostream(btn1,btn2,div,video, stream, "You");
-        
+        videos[id] = stream;
         socket.on("user-connected", (userid, username) => {
             
             let call = peer.call(userid, stream);
