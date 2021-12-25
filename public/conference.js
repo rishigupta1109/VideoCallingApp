@@ -1,4 +1,4 @@
-let audiobool = true;
+
 let peers = {};
 let videos = {};
 const socket = io('https://guarded-plateau-04700.herokuapp.com/');
@@ -19,22 +19,21 @@ var usernames = {};
 //     img2i.setAttribute("src", "videomute.png")
 //     return [img1, img1i, img2, img2i];
 // }
-const mute = (bool) => {
-    audiobool = bool;
-}
+
 const muteHandler = (e) => {
     let btn = e.target;
     if (btn.getAttribute("data-key") == id) {
         if (btn.getAttribute("data-type") == "audio") {
             if (btn.getAttribute("data-mute") == "true") {
-                mute(true);
+                videos[id].getTracks()[0].stop();
                 btn.setAttribute("data-mute", "false");
                 btn.style.backgroundImage = `url(microphone.png)`;
             }
             else {
                 btn.setAttribute("data-mute", "true");
+                videos[id].getTracks()[0].stop();
                 btn.style.backgroundImage = `url(microphonemute.png)`;
-                mute(false);
+                
             }
         }
         
@@ -80,7 +79,8 @@ const buttonsmaker = () => {
 const call = (username) => {
     // content.style.display = "none";
     roombox.style.display = "flex";
-    navigator.mediaDevices.getUserMedia({ video: true, audio: audiobool }).then(stream => {
+    navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then(stream => {
+        console.log(stream);
         const div = document.createElement("div");
         let video = document.createElement("video");
         let btns = buttonsmaker();
@@ -114,7 +114,7 @@ const call = (username) => {
                     video.remove();
                     div.remove();
                 })
-                videos[userid] = video;
+                videos[userid] = stream;
             })
             usernames[userid] = username;
             peers[userid] = call;
@@ -147,7 +147,7 @@ const answercall = (Call, stream) => {
             video.remove();
             div.remove();
         })
-        videos[Call.peer] = video;
+        videos[Call.peer] = stream;
     })
     peers[Call.peer] = Call;
     
