@@ -22,22 +22,34 @@ var usernames = {};
 
 const muteHandler = (e) => {
     let btn = e.target;
-    if (btn.getAttribute("data-key") == id) {
+    
         if (btn.getAttribute("data-type") == "audio") {
             if (btn.getAttribute("data-mute") == "true") {
-                videos[id].getTracks()[0].stop();
+                videos[btn.getAttribute("data-key")].getTracks()[0].enabled=true;
                 btn.setAttribute("data-mute", "false");
                 btn.style.backgroundImage = `url(microphone.png)`;
             }
             else {
                 btn.setAttribute("data-mute", "true");
-                videos[id].getTracks()[0].stop();
+                videos[btn.getAttribute("data-key")].getTracks()[0].enabled=false;
                 btn.style.backgroundImage = `url(microphonemute.png)`;
-                
+            }
+        }
+        else {
+            if (btn.getAttribute("data-mute") == "true") {
+                videos[btn.getAttribute("data-key")].getTracks()[1].enabled=true;
+                btn.setAttribute("data-mute", "false");
+                btn.style.backgroundImage = `url(video.png)`;
+            }
+            else {
+                btn.setAttribute("data-mute", "true");
+                videos[btn.getAttribute("data-key")].getTracks()[1].enabled=false;
+                btn.style.backgroundImage = `url(videomute.png)`;
             }
         }
         
-    }
+    
+    
     
 }
 // socket.on("mute-his-audio", id => {
