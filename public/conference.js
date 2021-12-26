@@ -1,13 +1,25 @@
 
 let peers = {};
 let videos = {};
-const socket = io('https://guarded-plateau-04700.herokuapp.com/');
-// const socket = io('http://localhost:3000');
+// const socket = io('https://guarded-plateau-04700.herokuapp.com/');
+const socket = io('http://localhost:3000');
 let roombox = document.getElementsByClassName("room")[0];
 let roomidtext = document.getElementsByClassName("roomid")[0];
 var peer = new Peer();
 var id="";
 var usernames = {};
+const chatsection=document.getElementsByClassName("chatsection")[0];
+const videosecion=document.getElementsByClassName("videosection")[0];
+
+const closeChats = () => {
+    chatsection.style.display = "none";
+    videosecion.style.display = "flex";
+}
+const openChats = () => {
+    chatsection.style.display = "flex";
+    videosecion.style.display = "none";
+    
+}
 // const createimgs = () => {
 //     let img1 = document.createElement("image");
 //     img1.setAttribute("src","microphone.png")
@@ -53,11 +65,15 @@ const muteHandler = (e) => {
     
 }
 // socket.on("mute-his-audio", id => {
-//     peers[id].mute(); 
+//     peers[id].mute();
 // })
 // socket.on("unmute-his-audio", id => {
-//     peers[id].unmute(); 
+//     peers[id].unmute();
 // })
+const endHandler = () => {
+    window.location.href = `http://localhost:3000`;
+    // window.location.href = `https://guarded-plateau-04700.herokuapp.com`;
+}
 const buttonsmaker = () => {
     // let btn1 = document.createElement("button");
     // let btn2 = document.createElement("button");
@@ -65,27 +81,40 @@ const buttonsmaker = () => {
     // btn1.append(img[0]);
     // btn2.append(img[2]);
     // return [img[0], img[2]];
-    let img1 = new Image("./microphone.png");
-    let img2 = new Image("./video.png");
     let btn1 = document.createElement("div");
     let btn2 = document.createElement("div");
+    let btn3 = document.createElement("div");
+    let btn4 = document.createElement("div");
     btn1.style.height = "55px";
+    btn3.style.height = "55px";
+    btn4.style.height = "55px";
     btn1.onclick = muteHandler;
     btn2.onclick = muteHandler;
+    btn3.onclick = endHandler;
+    btn4.onclick = openChats;
     btn1.setAttribute("data-type","audio");
     btn1.setAttribute("data-mute","false");
     btn1.style.width = "55px";
+    btn3.style.width = "55px";
+    btn4.style.width = "55px";
     btn2.setAttribute("data-type","video");
     btn2.setAttribute("data-mute","false");
     btn2.style.height = "55px";
     btn2.style.width = "55px";
     btn1.classList.add("utility-btn")
+    btn3.classList.add("utility-btn")
+    btn4.classList.add("utility-btn")
+    btn4.classList.add("chat-btn")
     btn2.classList.add("utility-btn")
     btn1.style.backgroundImage = `url(microphone.png)`;
+    btn3.style.backgroundImage = `url(phone.png)`;
+    btn4.style.backgroundImage = `url(comment.png)`;
     btn1.style.backgroundRepeat = `round`;
+    btn3.style.backgroundRepeat = `round`;
+    btn4.style.backgroundRepeat = `round`;
     btn2.style.backgroundImage = `url(video.png)`;
     btn2.style.backgroundRepeat = `round`;
-    return [btn1, btn2];
+    return [btn1, btn2,btn3,btn4];
 
 }
 const call = (username) => {
@@ -97,11 +126,20 @@ const call = (username) => {
         let video = document.createElement("video");
         let btns = buttonsmaker();
                 let btn1 = btns[0];
-                let btn2 = btns[1];
+        let btn2 = btns[1];
+        let btn3 = btns[2];
+        let btn4 = btns[3];
                 btn1.setAttribute("data-key", id);
                 btn2.setAttribute("data-key", id);
-        video.muted=true;
-        addvideostream(btn1,btn2,div,video, stream, "You");
+        video.muted = true;
+        const rowdiv = document.createElement("div");
+        rowdiv.classList.add("row");
+        rowdiv.append(btn1);
+        rowdiv.append(btn2);
+        rowdiv.append(btn3);
+        rowdiv.append(btn4);
+        document.getElementsByClassName("options")[0].append(rowdiv);
+        addvideostream(div,video, stream, "You");
         videos[id] = stream;
         socket.on("user-connected", (userid, username) => {
             
@@ -112,13 +150,13 @@ const call = (username) => {
                 const div = document.createElement("div");
                 let video = document.createElement("video");
                 console.log(stream);
-                let btns = buttonsmaker();
-                let btn1 = btns[0];
-                let btn2 = btns[1];
-                btn1.setAttribute("data-key", userid);
-                btn2.setAttribute("data-key", userid);
+                // let btns = buttonsmaker();
+                // let btn1 = btns[0];
+                // let btn2 = btns[1];
+                // btn1.setAttribute("data-key", userid);
+                // btn2.setAttribute("data-key", userid);
                 if(bool){
-                    addvideostream(btn1,btn2,div, video, stream, username);
+                    addvideostream(div, video, stream, username);
                     appendmessage(username + " : Joined ");
                 }
                 bool = false;
@@ -147,13 +185,13 @@ const answercall = (Call, stream) => {
         console.log(usernames[Call.peer]);
         const div = document.createElement("div");
         let video = document.createElement("video");
-        let btns = buttonsmaker();
-                let btn1 = btns[0];
-                let btn2 = btns[1];
-                btn1.setAttribute("data-key", Call.peer);
-                btn2.setAttribute("data-key", Call.peer);
+        // let btns = buttonsmaker();
+        //         let btn1 = btns[0];
+        //         let btn2 = btns[1];
+        //         btn1.setAttribute("data-key", Call.peer);
+        //         btn2.setAttribute("data-key", Call.peer);
         if(bool)
-        addvideostream(btn1 ,btn2,div,video, stream,usernames[Call.peer])
+        addvideostream(div,video, stream,usernames[Call.peer])
         bool = false;
         Call.on("close", () => {
             video.remove();
@@ -174,18 +212,15 @@ socket.on("usersdata", usernamedata => {
     console.log(usernamedata);
     usernames = {...usernamedata};
 })
-const addvideostream = (btn1,btn2,div,video, stream,username) => {
+const addvideostream = (div,video, stream,username) => {
     let body=document.getElementsByClassName("videogrid")[0];
     video.srcObject = stream;
-    const rowdiv = document.createElement("div");
-    rowdiv.classList.add("row");
+    
     const textnode = document.createElement("h2");
     textnode.innerText = username;
     div.append(video);
     div.append(textnode);
-    rowdiv.append(btn1);
-    rowdiv.append(btn2);
-    div.append(rowdiv);
+    
     div.classList.add("column");
     body.append(div);
     video.play();
@@ -212,16 +247,18 @@ let sendbtn = document.getElementById("send");
 let Message = document.getElementById("message");
 let chats = document.getElementById("chats");
 
-const appendmessage = (message) => {
+const appendmessage = (message,bool) => {
     const textnode = document.createElement("h3");
+    if (bool) textnode.classList.add("L");
+    else textnode.classList.add("R");
     textnode.innerText = message;
     chats.append(textnode);
 }
 sendbtn.onclick = () => {
     socket.emit("message-send", Message.value);
-    appendmessage("You :"+Message.value);
+    appendmessage("You :"+Message.value,0);
     Message.value = "";
 }
 socket.on("message-recieved",(username, message) => {
-    appendmessage(username+" : "+message);
+    appendmessage(username+" : "+message,1);
 })
