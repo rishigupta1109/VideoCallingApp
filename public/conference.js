@@ -1,8 +1,8 @@
 
 let peers = {};
 let videos = {};
-// const socket = io('https://guarded-plateau-04700.herokuapp.com/');
-const socket = io('http://localhost:3000');
+const socket = io('https://guarded-plateau-04700.herokuapp.com/');
+// const socket = io('http://localhost:3000');
 let roombox = document.getElementsByClassName("room")[0];
 let roomidtext = document.getElementsByClassName("roomid")[0];
 var peer = new Peer();
