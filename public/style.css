@@ -151,6 +151,9 @@ video{
     .videogrid{
         width:800px;
     }
+    video{
+        width: min(90%,300px);
+    }
 }
 button image{
     height:50px;
