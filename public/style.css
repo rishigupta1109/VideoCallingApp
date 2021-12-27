@@ -122,7 +122,8 @@
 }
 video{
     margin: 15px;
-    width: min(90%,400px);
+    /* width: min(90%,400px); */
+    width:400px;
     border-radius: 10px;
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
