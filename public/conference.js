@@ -81,8 +81,8 @@ const muteHandler = (e) => {
 //     peers[id].unmute();
 // })
 const endHandler = () => {
-    window.location.href = `http://localhost:3000`;
-    // window.location.href = `https://guarded-plateau-04700.herokuapp.com`;
+    // window.location.href = `http://localhost:3000`;
+    window.location.href = `https://guarded-plateau-04700.herokuapp.com`;
 }
 const buttonsmaker = () => {
     // let btn1 = document.createElement("button");
