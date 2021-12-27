@@ -10,6 +10,16 @@ var id="";
 var usernames = {};
 const chatsection=document.getElementsByClassName("chatsection")[0];
 const videosecion=document.getElementsByClassName("videosection")[0];
+let i = 0;
+let j=4;
+
+    
+    if(window.innerWidth>500){
+        j = 3;
+    }
+    else{
+        j = 2;
+    }
 
 const closeChats = () => {
     chatsection.style.display = "none";
@@ -34,29 +44,29 @@ const openChats = () => {
 
 const muteHandler = (e) => {
     let btn = e.target;
-    
+    btn.classList.toggle("muted");
         if (btn.getAttribute("data-type") == "audio") {
             if (btn.getAttribute("data-mute") == "true") {
                 videos[btn.getAttribute("data-key")].getTracks()[0].enabled=true;
                 btn.setAttribute("data-mute", "false");
-                btn.style.backgroundImage = `url(microphone.png)`;
+               
             }
             else {
                 btn.setAttribute("data-mute", "true");
                 videos[btn.getAttribute("data-key")].getTracks()[0].enabled=false;
-                btn.style.backgroundImage = `url(microphonemute.png)`;
+              
             }
         }
         else {
             if (btn.getAttribute("data-mute") == "true") {
                 videos[btn.getAttribute("data-key")].getTracks()[1].enabled=true;
                 btn.setAttribute("data-mute", "false");
-                btn.style.backgroundImage = `url(video.png)`;
+               
             }
             else {
                 btn.setAttribute("data-mute", "true");
                 videos[btn.getAttribute("data-key")].getTracks()[1].enabled=false;
-                btn.style.backgroundImage = `url(videomute.png)`;
+                
             }
         }
         
@@ -207,13 +217,28 @@ socket.on("user-disconnected", (userid) => {
     appendmessage(usernames[userid] + " : left");
     let target = peers[userid];
     target.close();
+    delete peers[userid];
+    let ovl = Object.values(peers).length;
+    if (j - 1 == ovl % j) {
+        let vgd = document.getElementsByClassName("videogrid")[i];
+        vgd.remove();
+        i--;
+    }
 })
 socket.on("usersdata", usernamedata => {
     console.log(usernamedata);
     usernames = {...usernamedata};
 })
-const addvideostream = (div,video, stream,username) => {
-    let body=document.getElementsByClassName("videogrid")[0];
+const addvideostream = (div, video, stream, username) =>{
+    let ovl = Object.values(peers).length;
+    if ( ovl% j == 0&&ovl!=0) {
+        let newdiv = document.createElement("div");
+        newdiv.classList.add("videogrid");
+        let vdc = document.getElementsByClassName("vgc")[0];
+        vdc.append(newdiv);
+        i++;
+    }
+    let body=document.getElementsByClassName("videogrid")[i];
     video.srcObject = stream;
     
     const textnode = document.createElement("h2");

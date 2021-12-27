@@ -8,6 +8,11 @@
     
     align-items: center;
 }
+.navbar a{
+    color:#41b9ff;
+    display: flex;
+    text-decoration: none;
+}
 #logo{
     height:50px;
     margin: 10px 20px;
@@ -107,16 +112,17 @@
 }
 .videogrid{
     height:400px;
-    width:800px;
+    width:1200px;
     display: flex;
     flex-direction: row;
+    justify-content: center;
     /* justify-content: center;
     align-items: center; */
     
 }
 video{
     margin: 15px;
-    width: min(90%,300px);
+    width: min(90%,400px);
     border-radius: 10px;
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
@@ -132,7 +138,7 @@ video{
     display: flex;
     flex-direction: column;
     width: 500px;
-    height: 600px;
+    height: 500px;
     padding: 10px;
    background-color: white;
     border-radius: 30px;
@@ -141,6 +147,9 @@ video{
 @media (max-width:1000px) {
     .room{
         flex-wrap: wrap;
+    }
+    .videogrid{
+        width:800px;
     }
 }
 button image{
@@ -210,29 +219,31 @@ button image{
     background-color: rgb(182, 21, 182);
 }
 #cross{
-    display: none;
+    cursor: pointer;
     height: 55px;
     width: 55px;
 }
 .chat-btn{
     display:none;
 }
-@media (min-width:470px) {
-    .videosection{
-        display: flex;
+.chatsection{
+    display: none;
+}
+.chat-btn{
+    display:flex;
+}
+
+@media (max-width:1200px) {
+    
+    .videogrid{
+        width:1000px;
     }
 }
-@media (max-width:1470px) {
-    #cross{
-        display: flex;
-    }
-    .chatsection{
-        display: none;
-    }
-    .chat-btn{
-        display:flex;
-    }
+@media  (max-width:1000px) {
     
+    .videogrid{
+        width:800px;
+    }
 }
 @media (max-width:800px) {
     #chats{
@@ -243,12 +254,18 @@ button image{
     }
 }
 
+@media (max-width:600px) {
+    #chats{
+        width: 300px;
+    }
+}
 @media (max-width:500px) {
     #chats{
         width: 300px;
     }
     .videogrid{
         width:300px;
+        height:300px;
     }
     .input-chats button{
         width:25%;
@@ -257,4 +274,20 @@ button image{
         width: 60%;
       
     }
+}
+.muted{
+    position: relative;
+}
+.muted::before{
+    top: -4px;
+    content: "";
+    height: 63px;
+    width: 3px;
+    background: black;
+    border-radius: 15px;
+    transition: easy;
+    left: 25px;
+    position: absolute;
+    transform: rotate(
+45deg);
 }
