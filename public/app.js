@@ -1,4 +1,4 @@
-const Socket = io('https://guarded-plateau-04700.herokuapp.com/');
+const Socket = io("https://meethub.onrender.com/");
 // const Socket = io('http://localhost:3000');
 // var peer = new Peer();
 // var id;
@@ -12,36 +12,36 @@ let joinmeetbtn = document.getElementById("join-meet-btn");
 let content = document.getElementsByClassName("content")[0];
 // let roombox = document.getElementsByClassName("room")[0];
 createmeetbtn.onclick = () => {
-    // let username = prompt("username: ");
-    // Socket.emit("create-room",id,username);
-    Socket.emit("create-room");
-}
+  // let username = prompt("username: ");
+  // Socket.emit("create-room",id,username);
+  Socket.emit("create-room");
+};
 Socket.on("room-created", (roomid) => {
-    // window.location.href = `http://localhost:3000/${roomid}`;
-    window.location.href = `https://guarded-plateau-04700.herokuapp.com/${roomid}`;
-    // console.log(roomid);
-    // roomidtext.innerText += roomid;
-})
+  // window.location.href = `http://localhost:3000/${roomid}`;
+  window.location.href = `https://meethub.onrender.com/${roomid}`;
+  // console.log(roomid);
+  // roomidtext.innerText += roomid;
+});
 
 const join = () => {
-    let roomid = document.getElementById("roomid").value;
-    window.location.href = `https://guarded-plateau-04700.herokuapp.com/${roomid}`;
-    // window.location.href = `http://localhost:3000/${roomid}`;
-    // let username = prompt("username: ");
-    // Socket.emit("join-room",id,roomid,username);
-    // call();
-    // roomidtext.innerText += roomid;
-}
+  let roomid = document.getElementById("roomid").value;
+  window.location.href = `https://meethub.onrender.com/${roomid}`;
+  // window.location.href = `http://localhost:3000/${roomid}`;
+  // let username = prompt("username: ");
+  // Socket.emit("join-room",id,roomid,username);
+  // call();
+  // roomidtext.innerText += roomid;
+};
 joinmeetbtn.onclick = join;
 // const call = () => {
 //     content.style.display = "none";
 //     roombox.style.display = "flex";
 //     navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then(stream => {
-        
+
 //         let video = document.createElement("video");
 //         video.muted=true;
 //         addvideostream(video, stream)
-        
+
 //         socket.on("user-connected", (userid,username) => {
 //             let call = peer.call(userid, stream);
 //             console.log(call);
@@ -81,7 +81,7 @@ joinmeetbtn.onclick = join;
 //         })
 //     })
 //     peers[Call.peer] = Call;
-    
+
 // }
 // socket.on("user-disconnected", (userid) => {
 //     console.log(peers[userid], userid);
