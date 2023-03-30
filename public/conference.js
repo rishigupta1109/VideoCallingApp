@@ -17,6 +17,12 @@ try {
     port: 3000,
     path: "peerjs/myapp",
   });
+  peer.on("open", function (i) {
+    id = i;
+    console.log("ID", id);
+    Join();
+  });
+
   console.log(peer);
 } catch (err) {
   console.log(err);
@@ -266,11 +272,6 @@ const Join = () => {
   call(username);
   roomidtext.innerText += roomid;
 };
-peer.on("open", function (i) {
-  id = i;
-  console.log("ID", id);
-  Join();
-});
 
 //Messaging part
 
