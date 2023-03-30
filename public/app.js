@@ -1,4 +1,4 @@
-const Socket = io("https://meethub.onrender.com/");
+const Socket = io("https://meethub.onrender.com");
 // const Socket = io("http://localhost:3000");
 // var peer = new Peer();
 // var id;
