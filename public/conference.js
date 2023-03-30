@@ -1,4 +1,5 @@
 let username = prompt("username: ");
+console.log(ROOM_ID);
 let peers = {};
 let videos = {};
 const socket = io("https://meethub.onrender.com");
@@ -6,6 +7,11 @@ const socket = io("https://meethub.onrender.com");
 let roombox = document.getElementsByClassName("room")[0];
 let roomidtext = document.getElementsByClassName("roomid")[0];
 try {
+  // var peer = new Peer(username, {
+  //   host: "localhost",
+  //   port: 3000,
+  //   path: "peerjs/myapp",
+  // });
   var peer = new Peer(username, {
     host: "meethub.onrender.com",
     port: 3000,
@@ -255,6 +261,7 @@ const addvideostream = (div, video, stream, username) => {
 
 const Join = () => {
   let roomid = ROOM_ID;
+  console.log(roomid);
   socket.emit("join-room", id, roomid, username);
   call(username);
   roomidtext.innerText += roomid;
