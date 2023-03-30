@@ -7,7 +7,7 @@ let roombox = document.getElementsByClassName("room")[0];
 let roomidtext = document.getElementsByClassName("roomid")[0];
 try {
   var peer = new Peer(username, {
-    host: "localhost",
+    host: "meethub.onrender.com",
     port: 3000,
     path: "peerjs/myapp",
   });
