@@ -12,10 +12,10 @@ try {
   //   port: 3000,
   //   path: "peerjs/myapp",
   // });
-  var peer = new Peer(username, {
+  var peer = new Peer({
     host: "meethub.onrender.com",
-    port: 3000,
-    path: "peerjs/myapp",
+    port: "",
+    path: "/peerjs/myapp",
   });
   peer.on("open", function (i) {
     id = i;
