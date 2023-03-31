@@ -29,7 +29,7 @@ app.get("/:room", (req, res) => {
 io.on("connection", (socket) => {
   socket.on("create-room", () => {
     console.log("create-room");
-    let room = uuidV4();
+    let room = uuidV4().slice(0, 6);
     // record[socket.id] = room;
     // users[socket.id] = id;
     // usernamesdata[id] = username;

@@ -1,11 +1,16 @@
 *{
     font-family: sans-serif;
 }
+body{
+    min-height: 100vh;
+    
+    background-color: black;
+    color:white;
+}
 .navbar{
-    color:#41b9ff;
+    color:#6c03ff;
     display: flex;
     flex-direction: row;
-    
     align-items: center;
 }
 .navbar a{
@@ -18,13 +23,17 @@
     margin: 10px 20px;
 }
 #pic1{
-    height: 300px;
+    max-height: 50vh;
+    height: 10%;
+    filter: invert(1);
 }
 .content{
+    min-height: 80vh;
+    height: 100%;
     display: flex;
     flex-wrap: wrap-reverse;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-evenly;
     align-items: center;
 }
 #create-meet-btn ,#join-meet-btn{
@@ -33,49 +42,42 @@
     width:170px;
     padding: 20px;
     border:none;
-    border-radius: 15px;
-    -webkit-border-radius: 15px;
-    -moz-border-radius: 15px;
-    -ms-border-radius: 15px;
-    -o-border-radius: 15px;
-    margin: 10px 10px;
+    border-radius: 5px;
+   
     cursor: pointer;
 }
 #create-meet-btn{
-    background-color: #41b9ff;
+    background-color: #6c03ff;
     color: white;
 }
 #join-meet-btn{
     background-color: white;
-    color: #41b9ff;
-    border: 1px solid #41b9ff;
+    color: #6c03ff;
+    border: 1px solid #6c03ff;
 }
 #create-meet-btn:hover{
     background-color: white;
-    color: #41b9ff;
-    border: 1px solid #41b9ff;
+     color: #6c03ff;
+     border: 1px solid #6c03ff;
 }
 #join-meet-btn:hover{
-    background-color: #41b9ff;
+   background-color: #6c03ff;
     color: white;
 }
 #roomid{
     font-size: large;
-    border: 1px solid #41b9ff;
+    border: 1px solid #6c03ff;
     height: 35px;
     width: 207px;
-    padding: 5px;
-    border-radius: 10px;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    -ms-border-radius: 10px;
-    -o-border-radius: 10px;
+    padding: 0.8rem 1rem;
+    border-radius: 5px;
 }
-.left{
+.left,.right{
+    padding: 1rem 0;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
+    justify-content: space-evenly;
+    align-items: center;
 }
 .buttons{
     display: flex;
@@ -83,36 +85,42 @@
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
+    gap:15px;
+    padding: 1rem;
 }
 
-.left h1{
-    font-size: xxx-large;
-    font-weight: bolder;
-    margin: 100px 0;
+.left p{
+   font-size: 4rem;
+   margin: 0;
 }
 @media (max-width:500px) {
     #pic1{
-        height: 150px;
+        width: 80%;
+    }
+    .left p{
+        font-size: 2rem;
+    }
+    .navbar h1{
+        font-size: 1rem;
     }
 }
 
 .room{
+    padding: 2rem;
+    max-height: 80vh;
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-    
-  display: none;
+    display: none;
 }
 .videosection{
+    max-height: 80vh;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    width: 100%;
 }
 .videogrid{
-    height:400px;
-    width:1200px;
+    /* max-height: 80vh; */
+  width:100%;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -120,15 +128,14 @@
     align-items: center; */
     
 }
+.videogrid .column{
+    width: 100%;
+}
 video{
-    margin: 15px;
-    width: min(90%,400px);
+   height: 100%;
+    width: 100%;
     /* width:400px; */
-    border-radius: 10px;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    -ms-border-radius: 10px;
-    -o-border-radius: 10px;
+    border-radius: 5px;
     transform: rotateY(180deg);
     -webkit-transform:rotateY(180deg);
     /*SafariandChrome*/-moz-transform:rotateY(180deg);
@@ -138,20 +145,23 @@ video{
 #chats{
     display: flex;
     flex-direction: column;
-    width: 500px;
-    height: 500px;
-    padding: 10px;
-   background-color: white;
-    border-radius: 30px;
+  width: 90%;
+  height: 80%;
+    padding: 1rem;
+   background-color: black;
+    border-radius: 5px;
     overflow:auto;
+}
+#chats img{
+    filter: invert(1);
 }
 @media (max-width:1000px) {
     .room{
         flex-wrap: wrap;
     }
-    .videogrid{
+    /* .videogrid{
         width:800px;
-    }
+    } */
   
 }
 button image{
@@ -171,18 +181,28 @@ button image{
     align-items: center;
 }
 .utility-btn{
+    transition: 200ms linear;
     cursor: pointer;
     margin: 15px;
 }
 .chatsection{
-    /* position: absolute;
-    right:5%; */
+    height: 95%;
+    width:95%;
+    position: fixed;
+    left: 0;
+    top: 0;
     display: flex;
+    gap:15px;
     flex-direction: column;
-    border: 5px solid #17c6ff;
-    background-color: white;
-    border-radius: 15px;
-    padding: 9px;
+    justify-content: space-between;
+    align-items: baseline;
+    background-color: #6c03ff;
+    color: white;
+    border-radius: 5px;
+    padding: 1rem;
+}
+.input-chats{
+    width: 100%;
 }
 .input-chats input[type="text"]{
     width: 80%;
@@ -190,7 +210,7 @@ button image{
     margin: 7px;
     padding: 7px;
     border-radius: 10px;
-    border: #08bcf7 1px solid;
+    border: #6c03ff 1px solid;
 }
 .input-chats button{
     width: 12%;
@@ -198,15 +218,15 @@ button image{
     padding: 8px;
     border-radius: 15px;
     background: white;
-    color: #08bcf7;
-    border: #08bcf7 2px solid;
+    color: #6c03ff;
+    border: #6c03ff 1px solid;
 }
 .input-chats button:hover{
-    background: #08bcf7;
+    background: #6c03ff;
     color: white;
 }
 .L,.R{
-    background-color: #08bcf7;
+    background-color: #6c03ff;
     display: inline;
     margin: 10px;
     padding: 10px;
@@ -237,38 +257,39 @@ button image{
 
 @media (max-width:1200px) {
     
-    .videogrid{
+    /* .videogrid{
         width:1000px;
-    }
+    } */
 }
 @media  (max-width:1000px) {
     
-    .videogrid{
+    /* .videogrid{
         width:800px;
-    }
+    } */
 }
 @media (max-width:800px) {
-    #chats{
+    /* #chats{
         width: 500px;
-    }
-    .videogrid{
+    } */
+    /* .videogrid{
         width:500px;
-    }
+    } */
 }
 
 @media (max-width:600px) {
-    #chats{
+    /* #chats{
         width: 300px;
-    }
+    } */
 }
 @media (max-width:500px) {
-    #chats{
+    /* #chats{
         width: 300px;
-    }
+    } */
     .videogrid{
-        width:300px;
-        height:300px;
+        /* width: 300px; */
+       flex-direction: column;
     }
+    
     .input-chats button{
         width:25%;
     }
@@ -292,4 +313,20 @@ button image{
     position: absolute;
     transform: rotate(
 45deg);
+}
+
+.utilityButtons{
+    background-color: rgba(0, 0, 0, 0.541);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+}
+.utility-btn:hover{
+    transform: scale(1.1);
 }

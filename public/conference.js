@@ -124,6 +124,10 @@ const buttonsmaker = () => {
   btn4.classList.add("chat-btn");
   btn2.classList.add("utility-btn");
   btn1.style.backgroundImage = `url(microphone.png)`;
+  btn1.style.filter = `invert(1)`;
+  btn2.style.filter = `invert(1)`;
+  // btn3.style.filter = `invert(1)`;
+  btn4.style.filter = `invert(1)`;
   btn3.style.backgroundImage = `url(phone.png)`;
   btn4.style.backgroundImage = `url(comment.png)`;
   btn1.style.backgroundRepeat = `round`;
@@ -148,12 +152,13 @@ navigator.mediaDevices
     btn1.setAttribute("data-key", id);
     btn2.setAttribute("data-key", id);
     video.muted = true;
-    const rowdiv = document.createElement("div");
+    // const rowdiv = document.createElement("div");
+    const rowdiv = document.getElementsByClassName("utilityButtons  ")[0];
     rowdiv.classList.add("row");
     rowdiv.append(btn1);
     rowdiv.append(btn2);
-    rowdiv.append(btn3);
     rowdiv.append(btn4);
+    rowdiv.append(btn3);
     document.getElementsByClassName("options")[0].append(rowdiv);
     addvideostream(div, video, stream, "You");
     videos[id] = stream;

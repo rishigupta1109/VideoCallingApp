@@ -15,18 +15,20 @@
     
 </head>
 <body>
-    <div class="navbar">
-      <a href="https://guarded-plateau-04700.herokuapp.com">
-        <img src="logo.png" id="logo">
-      </a>
-       <a href="https://guarded-plateau-04700.herokuapp.com" >
-        <h1>Meethub</h1>
-       </a> 
-    </div>
    
+    <div class="navbar">
+      <a href="https://meethub.onrender.com/">
+        <img src="/images/logo_b.png" id="logo">
+      </a>
+       <a href="https://meethub.onrender.com/" >
+    <h1><b style="color: white;">Meet</b>Hub</h1>
+</a> 
+<h1 style="color: white; margin-left: auto;" class="roomid">Room ID : </h1>
+</div>
+
     <div class="room">
         <div class="videosection">
-            <h1 class="roomid">Room ID : </h1>
+           
             <div class="vgc">
                 <div class="videogrid">
         
@@ -35,12 +37,15 @@
             <div class="options"></div>
         </div>
         <div class="chatsection">
-            <img src="cancel.png" alt="cross" id="cross" onclick="closeChats()">
+            <img src="cancel.png"  style="align-self: baseline;" alt="cross" id="cross" onclick="closeChats()">
             <div id="chats"></div>
             <div class="input-chats">
                 <input type="text" id="message">
                 <button id="send">send</button>
             </div>
+        </div>
+        <div class="utilityButtons">
+
         </div>
     </div>
     <script src="conference.js"></script>
