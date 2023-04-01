@@ -1,5 +1,6 @@
-const Socket = io("https://meethub.onrender.com");
-// const Socket = io("http://localhost:3000");
+// const Socket = io("https://meethub.onrender.com");
+console.log(window.location.href, window.location.port, window.location);
+const Socket = io(window.location.origin);
 // var peer = new Peer();
 // var id;
 // peer.on('open', function (i) {
@@ -17,16 +18,16 @@ createmeetbtn.onclick = () => {
   Socket.emit("create-room");
 };
 Socket.on("room-created", (roomid) => {
-  // window.location.href = `http://localhost:3000/${roomid}`;
-  window.location.href = `https://meethub.onrender.com/${roomid}`;
+  window.location.href = `${window.location.origin}/${roomid}`;
+  // window.location.href = `https://meethub.onrender.com/${roomid}`;
   // console.log(roomid);
   // roomidtext.innerText += roomid;
 });
 
 const join = () => {
   let roomid = document.getElementById("roomid").value;
-  window.location.href = `https://meethub.onrender.com/${roomid}`;
-  // window.location.href = `http://localhost:3000/${roomid}`;
+  // window.location.href = `https://meethub.onrender.com/${roomid}`;
+  window.location.href = `${window.location.origin}/${roomid}`;
   // let username = prompt("username: ");
   // Socket.emit("join-room",id,roomid,username);
   // call();

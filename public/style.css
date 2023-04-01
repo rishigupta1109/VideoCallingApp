@@ -101,7 +101,7 @@ body{
         font-size: 2rem;
     }
     .navbar h1{
-        font-size: 1rem;
+        font-size: 2rem;
     }
 }
 
@@ -119,11 +119,12 @@ body{
     width: 100%;
 }
 .videogrid{
-    /* max-height: 80vh; */
+    max-height: 80vh;
   width:100%;
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: baseline;
+    flex-wrap: wrap;
     /* justify-content: center;
     align-items: center; */
     
@@ -132,8 +133,8 @@ body{
     width: 100%;
 }
 video{
-   height: 100%;
     width: 100%;
+    max-height:80vh ;
     /* width:400px; */
     border-radius: 5px;
     transform: rotateY(180deg);
@@ -287,9 +288,14 @@ button image{
     } */
     .videogrid{
         /* width: 300px; */
-       flex-direction: column;
+       /* flex-direction: column;
+        */
+        justify-content: baseline;
+        flex-wrap: wrap;
     }
-    
+    .column{
+        width: 50% !important;
+    }
     .input-chats button{
         width:25%;
     }
@@ -329,4 +335,28 @@ button image{
 }
 .utility-btn:hover{
     transform: scale(1.1);
+}
+.loader{
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    left: 0;
+    top:0;
+    background-color: black;
+    z-index: 50;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.loader img{
+    animation: rotate infinite forwards 5s linear;
+}
+@keyframes rotate {
+    0%{
+        transform: rotate(0deg);
+    }
+    100%{
+        transform: rotate(360deg);
+    }
 }

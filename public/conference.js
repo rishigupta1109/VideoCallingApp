@@ -1,9 +1,18 @@
 let username = prompt("username: ");
+window.onbeforeunload = (e) => {
+  e.preventDefault();
+  const message =
+    "Are you sure you want to leave? All provided data will be lost.";
+  e.returnValue = message;
+  return message;
+};
+const loader = document.getElementsByClassName("loader")[0];
+loader.style.display = "flex";
 console.log(ROOM_ID);
 let peers = {};
 let videos = {};
-const socket = io("https://meethub.onrender.com");
-// const socket = io("http://localhost:3000");
+// const socket = io("https://meethub.onrender.com");
+const socket = io(window.location.origin);
 let roombox = document.getElementsByClassName("room")[0];
 let roomidtext = document.getElementsByClassName("roomid")[0];
 try {
@@ -13,13 +22,19 @@ try {
   //   path: "peerjs/myapp",
   // });
   var peer = new Peer({
-    host: "meethub.onrender.com",
-    port: "",
+    host: window.location.hostname,
+    port: window.location.port,
     path: "/peerjs/myapp",
   });
+  // var peer = new Peer({
+  //   host: "meethub.onrender.com",
+  //   port: "",
+  //   path: "/peerjs/myapp",
+  // });
   peer.on("open", function (i) {
     id = i;
     console.log("ID", id);
+    loader.style.display = "none";
     Join();
   });
 
@@ -88,8 +103,8 @@ const muteHandler = (e) => {
 //     peers[id].unmute();
 // })
 const endHandler = () => {
-  // window.location.href = `http://localhost:3000`;
-  window.location.href = `https://meethub.onrender.com/`;
+  window.location.href = `${window.location.origin}`;
+  // window.location.href = `https://meethub.onrender.com/`;
 };
 const buttonsmaker = () => {
   // let btn1 = document.createElement("button");
@@ -182,10 +197,26 @@ navigator.mediaDevices
         }
         bool = false;
         call.on("close", () => {
+          Array.from(document.getElementsByClassName("column")).forEach(
+            (el) => {
+              el.style.width = `${
+                100 / (Object.keys(videos).length - 1) < 25
+                  ? 25
+                  : 100 / (Object.keys(videos).length - 1)
+              }%`;
+            }
+          );
           video.remove();
           div.remove();
         });
         videos[userid] = stream;
+        Array.from(document.getElementsByClassName("column")).forEach((el) => {
+          el.style.width = `${
+            100 / Object.keys(videos).length < 25
+              ? 25
+              : 100 / Object.keys(videos).length
+          }%`;
+        });
       });
       usernames[userid] = username;
       peers[userid] = call;
@@ -224,10 +255,24 @@ const answercall = (Call, stream) => {
     if (bool) addvideostream(div, video, stream, usernames[Call.peer]);
     bool = false;
     Call.on("close", () => {
+      Array.from(document.getElementsByClassName("column")).forEach((el) => {
+        el.style.width = `${
+          100 / (Object.keys(videos).length - 1) < 25
+            ? 25
+            : 100 / (Object.keys(videos).length - 1)
+        }%`;
+      });
       video.remove();
       div.remove();
     });
     videos[Call.peer] = stream;
+    Array.from(document.getElementsByClassName("column")).forEach((el) => {
+      el.style.width = `${
+        100 / Object.keys(videos).length < 25
+          ? 25
+          : 100 / Object.keys(videos).length
+      }%`;
+    });
   });
   peers[Call.peer] = Call;
 };
