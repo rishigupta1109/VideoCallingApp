@@ -133,6 +133,7 @@ body{
     width: 100%;
 }
 video{
+    aspect-ratio: 4/3;
     width: 100%;
     max-height:80vh ;
     /* width:400px; */
