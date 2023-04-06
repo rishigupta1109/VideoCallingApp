@@ -344,3 +344,13 @@ sendbtn.onclick = () => {
 socket.on("message-recieved", (username, message) => {
   appendmessage(username + " : " + message, 1);
 });
+
+const copyLink = async () => {
+  console.log("hello");
+  try {
+    await navigator.Clipboard.writeText(window.location.href);
+  } catch (e) {
+    console.log(e);
+  }
+  alert("Link Copied");
+};
