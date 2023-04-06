@@ -60,8 +60,11 @@ const closeChats = () => {
   videosecion.style.display = "flex";
 };
 const openChats = () => {
+  document.getElementsByClassName("chat-btn")[0].setAttribute("data-count", "");
+  document.getElementsByClassName("chat-btn")[0].setAttribute("data-pad", "0");
   chatsection.style.display = "flex";
   videosecion.style.display = "none";
+  document.getElementById("message").focus();
 };
 // const createimgs = () => {
 //     let img1 = document.createElement("image");
@@ -217,6 +220,14 @@ navigator.mediaDevices
               : 100 / Object.keys(videos).length
           }%`;
         });
+        console.log(window.innerWidth);
+        if (window.innerWidth < 500 && Object.keys(videos).length <= 2) {
+          Array.from(document.getElementsByClassName("column")).forEach(
+            (el) => {
+              el.style.width = `100%`;
+            }
+          );
+        }
       });
       usernames[userid] = username;
       peers[userid] = call;
@@ -273,9 +284,25 @@ const answercall = (Call, stream) => {
           : 100 / Object.keys(videos).length
       }%`;
     });
+    console.log(window.innerWidth);
+    if (window.innerWidth < 500 && Object.keys(videos).length <= 2) {
+      Array.from(document.getElementsByClassName("column")).forEach((el) => {
+        el.style.width = `100%`;
+      });
+    }
   });
+
   peers[Call.peer] = Call;
 };
+window.onresize = () => {
+  console.log(window.innerWidth);
+  if (window.innerWidth < 500 && Object.keys(videos).length <= 2) {
+    Array.from(document.getElementsByClassName("column")).forEach((el) => {
+      el.style.width = `100%`;
+    });
+  }
+};
+
 socket.on("user-disconnected", (userid) => {
   console.log(peers[userid], userid);
   appendmessage(usernames[userid] + " : left");
@@ -336,19 +363,30 @@ const appendmessage = (message, bool) => {
   textnode.innerText = message;
   chats.append(textnode);
 };
-sendbtn.onclick = () => {
+const sendMessage = () => {
   socket.emit("message-send", Message.value);
-  appendmessage("You :" + Message.value, 0);
+  appendmessage("You : " + Message.value, 0);
   Message.value = "";
 };
+document.getElementById("message").onkeydown = (e) => {
+  console.log(e);
+  if (e.code == "Enter") {
+    sendMessage();
+  }
+};
+sendbtn.onclick = sendMessage;
 socket.on("message-recieved", (username, message) => {
   appendmessage(username + " : " + message, 1);
+  document
+    .getElementsByClassName("chat-btn")[0]
+    .setAttribute("data-count", "!");
+  document.getElementsByClassName("chat-btn")[0].setAttribute("data-pad", "1");
 });
 
 const copyLink = async () => {
   console.log("hello");
   try {
-    await navigator.Clipboard.writeText(window.location.href);
+    await navigator.clipboard.writeText(window.location.href);
   } catch (e) {
     console.log(e);
   }

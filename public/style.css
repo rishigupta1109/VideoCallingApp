@@ -133,6 +133,7 @@ body{
     width: 100%;
 }
 video{
+    border: 1px solid white;
     aspect-ratio: 4/3;
     width: 100%;
     max-height:80vh ;
@@ -144,6 +145,22 @@ video{
     /*Firefox*/;
 }
 
+.chat-btn::after{
+    content: attr(data-count);
+    background: #6c03ff;
+    filter: invert(1);
+    border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: -6px;
+    left: 25px;
+}
+.chat-btn[data-count="!"]::after{
+    height: 30px;
+    width: 30px;
+}
 #chats{
     display: flex;
     flex-direction: column;
@@ -202,21 +219,21 @@ button image{
     border-radius: 5px;
 }
 .input-chats{
-    width: 100%;
+    width: 92%;
 }
 .input-chats input[type="text"]{
     width: 80%;
     font-size: large;
     margin: 7px;
     padding: 7px;
-    border-radius: 10px;
+    border-radius: 5px;
     border: #6c03ff 1px solid;
 }
 .input-chats button{
     width: 12%;
     font-size: large;
     padding: 8px;
-    border-radius: 15px;
+    border-radius: 5px;
     background: white;
     color: #6c03ff;
     border: #6c03ff 1px solid;
@@ -224,13 +241,14 @@ button image{
 .input-chats button:hover{
     background: #6c03ff;
     color: white;
+    border: 1px solid white;
 }
 .L,.R{
     background-color: #6c03ff;
     display: inline;
     margin: 10px;
     padding: 10px;
-    border-radius: 10px;
+    border-radius: 5;
     color: white;
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
@@ -250,6 +268,11 @@ button image{
 }
 .chatsection{
     display: none;
+}
+.chatsection img{
+    height: 50px;
+    width: 50px;
+    margin: 10px;
 }
 .chat-btn{
     display:flex;
@@ -301,6 +324,11 @@ button image{
     .input-chats input[type="text"]{
         width: 60%;
       
+    }
+}
+@media screen and (max-width:400px) {
+    .navbar h1,.navbar p{
+        font-size: 20px !important;
     }
 }
 .muted{
